@@ -1,0 +1,427 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;600&display=swap');
+
+//font size(s)
+$head-size: 34px;
+$size-2: 15px;
+$size-3: 13px;
+$size-4: 11px;
+$text-size: 9px;
+
+// Size of line and padding
+$icon-size: 16px;
+$left-padding: 1.7rem;
+$tetrad-height: 84px;
+$side-width: 215px;
+$card-width: 190px;
+
+// Weight
+$weight-1: 600;
+$weight-2: 500;
+
+// line
+$line-height: 1.3;
+$line-color: #093E28;
+
+// Color(s)
+$main-bg: #eda65b86;
+$body-bg: #c8af80b4;
+$card-bg: #5F0E0B;
+$shadow-bg: rgba(0.3, 0, 0, .2);
+
+
+// Font
+$josefin: 'Josefin Sans', sans-serif;
+
+// Imgs
+$imgs: 
+  1 url('https://avatars.githubusercontent.com/u/50506797?v=4'),
+  2 url('https://avatars.githubusercontent.com/u/50506797?v=4'),
+  3 url('https://github.com/YASHSU/YASHSU/raw/main/profile-github.gif')
+  ;
+
+
+// Mixin(s)
+@mixin imgStyle($img) {
+  width: 100%;
+  height: 182px;
+  background: $img center/cover no-repeat;
+} 
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  padding: 2.4rem 1.5rem;
+  background: $body-bg;
+}
+
+ul, li, p {
+  list-style: none;
+  font-size: $size-4;
+}
+
+li > img {
+  width: $size-4;
+}
+
+span {
+  display: inline-block;
+  font-style: italic;
+  line-height: $line-height;
+  font-size: $text-size;
+}
+
+.container {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1100px;
+  height: 640px;
+  overflow: hidden;
+  border-radius: 2px;
+  font-family: $josefin;
+  background: $main-bg;
+  box-shadow: 1px 2px 3px 2px $shadow-bg;
+  
+  &-inner {
+    display: flex;
+    height: 100%;
+    border: 3px solid $card-bg;
+
+    > div {
+      height: 100%;
+      
+      &:not(:nth-child(3)) {
+        border-right: 1px solid $line-color;
+        padding: 1rem 0;
+      }
+    }
+  }
+}
+
+
+
+// Tetrad
+.tetrad {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  > div,
+  > ul {
+    width: $side-width;
+    padding-left: $left-padding;
+  }
+
+  &-head {
+    height: $tetrad-height;
+    padding-top: 1.5rem;
+    border-bottom: 1px solid $line-color;
+  }
+
+  ul {
+    li {
+      line-height: 2;
+      font-weight: $weight-1;
+    }
+  }
+
+  &-social {
+    p {
+      display: inline-block;
+      padding: {
+        right: .6rem;
+        bottom: .3rem;
+      };
+      margin-bottom: .3rem;
+      border-bottom: 1px solid $line-color;
+      font-size: $text-size;
+    }
+  
+
+    ul {
+
+      li {
+        display: inline;
+        margin-right: .3rem;
+
+        img { width: $size-2; }
+      }
+    } 
+  }
+}
+
+
+
+
+// article
+.article {
+  > ol {
+    display: flex;
+    padding-top: .7rem;
+    justify-content: space-evenly;
+    counter-reset: my-counter;
+    height: $tetrad-height;
+    border-bottom: 1px solid $line-color;
+
+    li {
+      position: relative;
+      counter-increment: my-counter;
+      width: $card-width;
+      line-height: $line-height;
+      padding-left: 1.5rem;
+
+      &::before {
+        position: absolute;
+        content: counter(my-counter) ".";
+        left: 0%; top: 10%;
+        font-size: $size-2;
+      }
+      
+      span:last-child {
+        margin-top: .4rem;
+      }
+    }
+  }
+  
+  &-body {
+    padding: {
+      top: 1.8rem;
+      bottom: 2.6rem;
+    };
+    border-bottom: 1px solid $line-color;
+    
+    &__1 {
+      padding: {
+        bottom: 1.3rem;
+        left: $left-padding;
+      };
+
+      p {
+        font-size: $text-size;
+        font-style: italic;
+        font-weight: $weight-1;
+        padding-top: .5rem;
+      }
+    }
+
+    &__2 {
+      display: flex;
+      justify-content: space-evenly;
+      
+      .body-card {
+        padding: .5rem;
+        background: $card-bg;
+        border: 1px solid $line-color;
+        color: $body-bg;
+        width: $card-width;
+        text-transform: capitalize;
+        box-shadow: 2px 1px 1px 2px $shadow-bg;
+
+        p {
+          font-weight: $weight-1;
+        }
+
+        &__head {
+          line-height: $line-height;
+        }
+
+        &__italic,
+        &__date {
+          display: block;
+          margin-bottom: .3rem;
+        }
+
+        &__italic {
+          margin-top: .6rem;
+        }
+
+        @each $numb, $val in $imgs {
+          &:nth-child(#{$numb}) .body-card__image {
+            @include imgStyle($val);
+          }
+        }
+      }
+    }
+  }
+
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    padding: $left-padding {
+      bottom: 0;
+      top: 1.4rem
+    };
+
+    > div {
+      width: 80%;
+      font-weight: $weight-1;
+    }
+
+    &__note {
+      
+      .note-1 {
+        margin-bottom: .5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        text-transform: capitalize;
+        
+        p {
+          width: 35%;
+          line-height: $line-height;
+        }
+      }
+
+      .note-2 {
+        font-size: $text-size;
+        line-height: 1.3;
+
+        &:first-letter {
+          font-size: $head-size;
+          line-height: 1;
+          float: left;
+        }
+      }
+    }
+
+    &__list {
+      padding: 0 3rem;
+
+      li {
+        padding: .2rem .5rem;
+        border: 1px solid $line-color;
+      }
+    }
+
+  }
+}
+
+
+
+
+
+.contact {
+
+  > div {
+    width: $side-width;
+  }
+
+  &-img {
+    @include imgStyle(url('https://github.com/YASHSU/YASHSU/raw/main/profile-github.gif'));
+    height: 142px;
+  }
+
+  &-note {
+    padding: 1.5rem .9rem 2rem 1rem;
+    border-bottom: 1px solid $line-color;
+
+    &__head {
+      font-weight: $weight-1;
+      text-transform: capitalize;
+      line-height: $line-height;
+    }
+
+    &__date {
+      line-height: 3;
+    }
+
+    &__par {
+      font-size: $text-size;
+      line-height: 1.5;
+    }
+  }
+
+  &-us {
+    padding: 2.1rem 0 1rem 0;
+    text-align: center;
+
+    h5 {
+      position: relative;
+      padding: .5rem 0;
+
+      &::before {
+        position: absolute;
+        content: "";
+        bottom: 0%; left: 50%;
+        transform: translateX(-50%);
+        height: 1px;
+        width: 30px;
+        background: rgba($line-color, .2);
+      }
+    }
+
+    form {
+      margin: 1.2rem auto;
+      width: 75%;
+
+      div {
+        display: flex;
+        margin: 0 auto;
+
+        input { width: 50%; }
+
+        input:first-child {
+          margin-right: .5rem;
+        }
+      }
+
+      input,
+      button {
+        font-family: $josefin;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid $line-color;
+        padding: .2rem 0;
+        margin: .5rem 0;
+        background: transparent;
+      }
+      
+      input {
+        font-size: $text-size; 
+        width: 100%;
+        
+        &::placeholder { 
+          color: $card-bg;
+          letter-spacing: 1px;
+          transition: color .1s ease-in;
+        }
+
+        &:focus::placeholder {
+          color: rgba(0, 0, 0, .4);
+        }
+      }
+
+      button {
+        font-size: $size-4;
+        margin: 1rem 0 .7rem 0;
+      }
+    } 
+  }
+
+  div.contact-rights {
+    text-align: center;
+    font-size: $text-size;
+    padding-top: .5rem;
+    width: 75%;
+    margin: 0 auto;
+    border-top: 1px solid $line-color;
+  }
+}
+
+.courtsey {
+  position: absolute;
+  bottom: 0px; right: 12px;
+  font-family: $josefin;
+  
+  a {
+    color: $card-bg;
+  }
+}
